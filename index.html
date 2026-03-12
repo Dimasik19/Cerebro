@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cerebro Game</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' font-size='48'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -17,8 +18,6 @@
 
   <script type="text/babel" data-presets="react">
     const { useMemo, useState, useContext, createContext, Children, isValidElement } = React;
-
-    const motion = new Proxy({}, { get: (_, tag) => tag });
 
     function makeIcon(glyph) {
       return function Icon({ className = "" }) {
@@ -719,13 +718,11 @@ function App() {
                     const Icon = meta.icon;
                     const forbidden = currentPlayer.currentField === field;
                     return (
-                      <motion.button
+                      <button
                         key={field}
-                        whileHover={{ y: -2 }}
-                        whileTap={{ scale: 0.98 }}
                         onClick={() => !forbidden && setSelectedField(field)}
                         className={classNames(
-                          "rounded-2xl border p-3 text-left transition",
+                          "rounded-2xl border p-3 text-left transition hover:-translate-y-0.5 active:scale-[0.98]",
                           selectedField === field ? "border-cyan-300 bg-cyan-400/10" : "border-white/10 bg-white/5 hover:bg-white/10",
                           forbidden && "cursor-not-allowed opacity-40"
                         )}
@@ -735,7 +732,7 @@ function App() {
                         </div>
                         <div className="text-sm font-medium">{meta.name}</div>
                         {forbidden && <div className="mt-1 text-xs text-slate-400">Нельзя дважды подряд</div>}
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
